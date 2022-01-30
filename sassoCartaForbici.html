@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleSassoCartaForbici.css">
+    <title>Sasso Carta Forbici</title>
+</head>
+<body>
+    <div class="sfondo">   
+        <div class="rettBianco">
+            <H1 class="sessantaquattropx">Giochiamo!</H1>
+            <div class="players trentaduepx">
+                <p>Tu <span class="punteggioUtente"></span></p>
+                <p>Computer <span class="punteggioIA"></span></p>
+            </div>
+            <div class="img">
+                <img src="" id="Utente"> 
+                <div id="paragrafi">
+                <p class="ventiduepx-b">Hai estratto <span class="scelta1 ventiduepx-bBold"></span></p>
+                <p class="ventiduepx-b">Il computer ha estratto <span class="scelta2 ventiduepx-bBold"></span></p>
+                <p class="ventiduepx-b">Il punto va a: <span class="risultato ventiduepx-bBold"></span></p>
+                </div>           
+                <img src="" id="Com">            
+               </div>
+            <div class="buttons">
+                <button class="blueButton ventiduepx-w play sasso">Sasso</button>
+                <button class="blueButton ventiduepx-w play carta">Carta</button>
+                <button class="blueButton ventiduepx-w play forbici">Forbici</button>
+            </div>
+            <button class="redButton ventiduepx-w restart">Ricomincia</button>
+
+            
+            
+            
+
+        </div>
+    </div>
+        
+    <script>
+        let max = 3
+        let punteggioUtente = 0
+        let punteggioIA = 0
+        let sceltaUtente 
+        let sceltaComputer
+        let playButtons = document.querySelectorAll(".play")
+        let output = document.querySelector(".risultato")
+        let scelta1 = document.querySelector(".scelta1")
+        let scelta2 = document.querySelector(".scelta2")
+        let scoreUser = document.querySelector(".punteggioUtente")
+        let scoreIA = document.querySelector(".punteggioIA")
+        let ricomincia = document.querySelector(".restart")
+        for(let i = 0; i < playButtons.length; i++){
+            let b = playButtons[i]
+            b.addEventListener("click", function(e){
+               const imgUser = document.getElementById("Utente")
+               const imgIA = document.getElementById("Com")
+                e.preventDefault()
+                console.log(e.currentTarget)
+                if(e.currentTarget.classList.contains('sasso')){
+                    sceltaUtente = 0
+                    imgUser.src = "./sasso sx.png"
+                }else if(e.currentTarget.classList.contains('carta')){
+                    sceltaUtente = 1
+                    imgUser.src = "./mano sx.png"
+                }else{
+                    sceltaUtente = 2
+                    imgUser.src = "./forbice sx.png"
+                }
+                
+                sceltaIA = getRandomInt(3)
+                console.log('utente ha scelto ' + sceltaUtente)
+                console.log('conmputer ha scelto ' + sceltaIA)
+                if(sceltaUtente == 0 && sceltaIA == 2){
+                    output.innerHTML = "Te"
+                    punteggioUtente = punteggioUtente + 1;
+                    scoreUser.innerHTML = punteggioUtente
+                }else if(sceltaUtente == 0 && sceltaIA == 1){
+                    output.innerHTML = "Computer"
+                    punteggioIA = punteggioIA + 1;
+                    scoreIA.innerHTML = punteggioIA
+                }else if(sceltaUtente == 1 && sceltaIA == 0){
+                    output.innerHTML = "Te"
+                    punteggioUtente = punteggioUtente + 1;
+                    scoreUser.innerHTML = punteggioUtente
+                }else if(sceltaUtente == 1 && sceltaIA == 2){
+                    output.innerHTML = "Computer"
+                    punteggioIA = punteggioIA + 1;
+                    scoreIA.innerHTML = punteggioIA
+                }else if(sceltaUtente == 2 && sceltaIA == 0){
+                    output.innerHTML == "Computer"
+                    punteggioIA = punteggioIA + 1;
+                    scoreIA.innerHTML = punteggioIA
+                }else if(sceltaUtente == 2 && sceltaIA == 1){
+                    output.innerHTML = "Te"
+                    punteggioUtente = punteggioUtente + 1;
+                    scoreUser.innerHTML = punteggioUtente
+                }if(sceltaUtente == sceltaIA){
+                    output.innerHTML = "Nessuno, pareggio"
+                }
+                if(sceltaUtente == 0){
+                    scelta1.innerHTML = "SASSO"
+                }else if(sceltaUtente == 1){
+                    scelta1.innerHTML = "CARTA"
+                }else{
+                    scelta1.innerHTML = "FORBICI"
+                }
+                if(sceltaIA == 0){
+                    scelta2.innerHTML = "SASSO"
+                    imgIA.src = "./sasso dx.png"
+                }else if(sceltaIA == 1){
+                    scelta2.innerHTML = "CARTA"
+                    imgIA.src = "./mano dx.png"
+                }else{
+                    scelta2.innerHTML = "FORBICI"
+                    imgIA.src = "./forbice dx.png"
+                }
+                if(sceltaUtente = 0){
+                    e.document.querySelector(".img .sasso").classList.remove(".hidden")
+                }
+            })
+        }
+        ricomincia.addEventListener("click", function(e){
+            e.preventDefault()
+            location.reload()
+        })
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+    </script>
+</body>
+</html>
